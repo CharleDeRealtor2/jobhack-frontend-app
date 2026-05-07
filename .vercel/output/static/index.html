@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JOBHACK | Premium Resume Builder</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js" defer></script>
+  <script src="app.js?v=1" defer></script>
+</head>
+<body>
+  <div class="page-shell">
+    <header class="hero-bar">
+      <div class="hero-content">
+        <p class="eyebrow">JOBHACK</p>
+        <h1>Professional Resume Builder</h1>
+        <p class="hero-copy">Craft stunning, ATS-optimized resumes with powerful design flexibility. 15+ professional themes, dynamic sections, and instant PDF export.</p>
+      </div>
+    </header>
+
+    <main>
+      <section id="auth-section" class="panel card">
+        <div class="auth-grid">
+          <div class="auth-copy">
+            <p class="label">Professional resumes for global employers</p>
+            <h2>Secure access for every job seeker</h2>
+            <p>Sign in or create an account to start building a resume that matches international hiring standards.</p>
+          </div>
+
+          <div class="auth-card">
+            <div class="tabs">
+              <button type="button" id="show-login" class="tab active">Sign In</button>
+              <button type="button" id="show-register" class="tab">Create Account</button>
+            </div>
+
+            <form id="login-form" class="form-group">
+              <label>Email address</label>
+              <input id="login-email" type="email" placeholder="name@example.com" required />
+              <label>Password</label>
+              <input id="login-password" type="password" placeholder="••••••••" required />
+              <button type="submit" class="button button-primary">Sign In</button>
+            </form>
+
+            <form id="register-form" class="form-group hidden">
+              <label>Full name</label>
+              <input id="register-name" type="text" placeholder="Jane Doe" required />
+              <label>Email address</label>
+              <input id="register-email" type="email" placeholder="name@example.com" required />
+              <label>Password</label>
+              <input id="register-password" type="password" placeholder="At least 8 characters" required />
+              <button type="submit" class="button button-secondary">Create Account</button>
+            </form>
+
+            <p class="small-text">JOBHACK protects your email and lets you continue editing your resume whenever you return.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="dashboard-section" class="panel hidden">
+        <div class="dashboard-header">
+          <h2>My Resumes</h2>
+          <button id="new-resume-btn" class="button button-primary">+ Create New Resume</button>
+        </div>
+        <div id="resumes-list" class="resumes-grid">
+          <!-- Resumes will be populated here -->
+        </div>
+      </section>
+
+      <section id="app-section" class="panel hidden">
+        <div class="app-header">
+          <div>
+            <p class="label">Welcome back</p>
+            <h2 id="welcome-name">Resume Studio</h2>
+          </div>
+          <div class="app-nav">
+            <button id="dashboard-btn" class="button button-secondary">← My Resumes</button>
+            <button id="logout-button" class="button button-tertiary">Sign Out</button>
+          </div>
+        </div>
+
+        <div class="theme-selector-bar">
+          <label for="theme-select">Resume Theme:</label>
+          <select id="theme-select" class="theme-dropdown">
+            <option value="modern-clean">✨ Modern Clean</option>
+            <option value="elegant-minimal">🎨 Elegant Minimal</option>
+            <option value="bold-professional">💼 Bold Professional</option>
+            <option value="tech-forward">🚀 Tech Forward</option>
+            <option value="creative-edge">🎯 Creative Edge</option>
+            <option value="luxury-dark">🌙 Luxury Dark</option>
+            <option value="corporate-blue">🏢 Corporate Blue</option>
+            <option value="creative-colorful">🌈 Creative Colorful</option>
+            <option value="minimalist-gray">⚡ Minimalist Gray</option>
+            <option value="sophisticated-serif">📖 Sophisticated Serif</option>
+            <option value="startup-vibes">🎪 Startup Vibes</option>
+            <option value="academic-formal">🎓 Academic Formal</option>
+            <option value="modern-gradient">🌅 Modern Gradient</option>
+            <option value="executive-black">💎 Executive Black</option>
+            <option value="nature-green">🌿 Nature Green</option>
+            <option value="retro-vintage">🎬 Retro Vintage</option>
+          </select>
+        </div>
+
+        <div class="builder-grid">
+          <div class="form-section-container">
+            <div class="section-heading">
+              <h3>Resume Builder</h3>
+              <p>Build your professional resume with dynamic sections</p>
+            </div>
+
+            <form id="resume-form">
+              <fieldset class="fieldset-group">
+                <legend>Personal Information</legend>
+                <div class="form-row">
+                  <div class="form-col">
+                    <label>Full Name</label>
+                    <input id="full-name" type="text" placeholder="Jane Doe" />
+                  </div>
+                  <div class="form-col">
+                    <label>Email</label>
+                    <input id="personal-email" type="email" placeholder="jane.doe@example.com" />
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-col">
+                    <label>Phone</label>
+                    <input id="phone" type="tel" placeholder="+234 812 345 6789" />
+                  </div>
+                  <div class="form-col">
+                    <label>Location</label>
+                    <div class="location-group">
+                      <select id="country-select" class="location-select">
+                        <option value="">Select Country</option>
+                        <!-- Countries will be populated by JS -->
+                      </select>
+                      <select id="state-select" class="location-select" disabled>
+                        <option value="">Select State/Province</option>
+                      </select>
+                      <select id="city-select" class="location-select" disabled>
+                        <option value="">Select City</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-col">
+                    <label>LinkedIn Profile</label>
+                    <input id="linkedin" type="url" placeholder="https://linkedin.com/in/username" />
+                  </div>
+                  <div class="form-col">
+                    <label>Portfolio / GitHub</label>
+                    <input id="portfolio" type="url" placeholder="https://github.com/username" />
+                  </div>
+                </div>
+              </fieldset>
+
+              <fieldset class="fieldset-group">
+                <legend>Professional Summary</legend>
+                <textarea id="summary" rows="4" placeholder="Results-driven professional with 3+ years' experience specializing in..."></textarea>
+              </fieldset>
+
+              <fieldset class="fieldset-group">
+                <legend>Core Skills</legend>
+                <select id="skills-select" multiple class="multi-select">
+                  <!-- Skills will be populated by JS -->
+                </select>
+                <div id="skills-container" class="dynamic-container"></div>
+                <button type="button" id="add-skill-btn" class="button button-secondary-sm">+ Add Custom Skill</button>
+              </fieldset>
+
+              <fieldset class="fieldset-group">
+                <legend>Work Experience</legend>
+                <div id="experience-container" class="dynamic-container"></div>
+                <button type="button" id="add-experience-btn" class="button button-secondary-sm">+ Add Experience</button>
+              </fieldset>
+
+              <fieldset class="fieldset-group">
+                <legend>Education</legend>
+                <div id="education-container" class="dynamic-container"></div>
+                <button type="button" id="add-education-btn" class="button button-secondary-sm">+ Add Education</button>
+              </fieldset>
+
+              <fieldset class="fieldset-group">
+                <legend>Certifications & Licenses</legend>
+                <div id="certifications-container" class="dynamic-container"></div>
+                <button type="button" id="add-certification-btn" class="button button-secondary-sm">+ Add Certification</button>
+              </fieldset>
+
+              <fieldset class="fieldset-group">
+                <legend>Projects & Achievements</legend>
+                <div id="projects-container" class="dynamic-container"></div>
+                <button type="button" id="add-project-btn" class="button button-secondary-sm">+ Add Project</button>
+              </fieldset>
+
+              <fieldset class="fieldset-group">
+                <legend>Additional Sections</legend>
+                <div id="custom-sections-container" class="dynamic-container"></div>
+                <button type="button" id="add-custom-section-btn" class="button button-secondary-sm">+ Add Custom Section</button>
+              </fieldset>
+
+              <div class="action-row">
+                <button id="save-resume-btn" type="button" class="button button-primary">💾 Save Resume</button>
+                <button id="download-pdf-btn" type="button" class="button button-secondary">📥 Download PDF</button>
+              </div>
+              <p id="message" class="message"></p>
+            </form>
+          </div>
+
+          <div class="preview-section-container">
+            <div class="section-heading">
+              <h3>Live Preview</h3>
+              <p>Real-time preview of your resume</p>
+            </div>
+            <div id="preview-scroll" class="preview-scroll-container">
+              <div id="preview" class="resume-preview"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>

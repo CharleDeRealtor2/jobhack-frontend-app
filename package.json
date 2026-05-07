@@ -1,1 +1,12 @@
-{"name":"jobhack-frontend","version":"1.0.0","private":true,"description":"Static frontend assets for JOBHACK.","scripts":{"start":"npx serve public"},"author":"","license":"ISC"}
+{
+  "name": "jobhack-frontend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Static frontend assets for JOBHACK.",
+  "scripts": {
+    "start": "npx serve public",
+    "build": "node scripts/build.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
