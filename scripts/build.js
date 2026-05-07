@@ -26,4 +26,17 @@ if (!fs.existsSync(srcDir)) {
 }
 
 copyRecursiveSync(srcDir, outDir);
+
+const configDir = path.join(__dirname, '..', '.vercel', 'output');
+const configFile = path.join(configDir, 'config.json');
+const config = {
+  version: 3,
+  routes: [
+    { handle: 'filesystem' },
+    { src: '/.*', dest: '/index.html' }
+  ]
+};
+
+fs.writeFileSync(configFile, JSON.stringify(config, null, 2), 'utf8');
 console.log(`Static files copied to ${outDir}`);
+console.log(`Vercel build config written to ${configFile}`);
