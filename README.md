@@ -1,0 +1,1 @@
+# Frontend\n\nThis directory contains static frontend assets for the JOBHACK app.\n\n## Run locally\n- Open `frontend/public/index.html` in a browser, or\n- Use a static server like `serve` with `npm start` from this folder.
