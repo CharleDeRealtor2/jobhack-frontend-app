@@ -16,7 +16,7 @@ const messageElement = document.getElementById('message');
 const AUTH_TOKEN = 'jobhack_token';
 const AUTH_USER = 'jobhack_user';
 const RESUME_KEY = 'jobhack_resume';
-const API_BASE_URL = 'https://jobhack-backend.vercel.app'; // Update this to your Vercel backend URL
+const API_BASE_URL = 'https://jobhack-backend-app.vercel.app'; // Update this to your actual Vercel backend URL if different
 
 // Form Elements
 const fullName = document.getElementById('full-name');
