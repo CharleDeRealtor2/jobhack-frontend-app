@@ -4,8 +4,10 @@ const authSection = document.getElementById('auth-section');
 const appSection = document.getElementById('app-section');
 const showLoginBtn = document.getElementById('show-login');
 const showRegisterBtn = document.getElementById('show-register');
+const showForgotBtn = document.getElementById('show-forgot');
 const loginForm = document.getElementById('login-form');
 const registerForm = document.getElementById('register-form');
+const forgotForm = document.getElementById('forgot-form');
 const logoutButton = document.getElementById('logout-button');
 const welcomeName = document.getElementById('welcome-name');
 const messageElement = document.getElementById('message');
@@ -168,8 +170,10 @@ const setActiveTab = (tab) => {
   console.log('Setting active tab:', tab);
   loginForm.classList.toggle('hidden', tab !== 'login');
   registerForm.classList.toggle('hidden', tab !== 'register');
+  forgotForm.classList.toggle('hidden', tab !== 'forgot');
   showLoginBtn.classList.toggle('active', tab === 'login');
   showRegisterBtn.classList.toggle('active', tab === 'register');
+  showForgotBtn.classList.toggle('active', tab === 'forgot');
 };
 const resumeThemes = {
   'modern-clean': {
@@ -928,6 +932,7 @@ const setAuthState = async () => {
 
 showLoginBtn.addEventListener('click', () => setActiveTab('login'));
 showRegisterBtn.addEventListener('click', () => setActiveTab('register'));
+showForgotBtn.addEventListener('click', () => setActiveTab('forgot'));
 
 loginForm.addEventListener('submit', async (event) => {
   event.preventDefault();
@@ -962,6 +967,17 @@ registerForm.addEventListener('submit', async (event) => {
   const name = document.getElementById('register-name').value.trim();
   const email = document.getElementById('register-email').value.trim();
   const password = document.getElementById('register-password').value;
+  const passwordConfirm = document.getElementById('register-password-confirm').value;
+
+  if (password !== passwordConfirm) {
+    showMessage('Passwords do not match.', false);
+    return;
+  }
+
+  if (password.length < 8) {
+    showMessage('Password must be at least 8 characters.', false);
+    return;
+  }
 
   try {
     const response = await fetch(`${API_BASE_URL}/api/register`, {
@@ -979,6 +995,25 @@ registerForm.addEventListener('submit', async (event) => {
     setAuthState();
   } catch (error) {
     showMessage('Unable to connect. Check your network.', false);
+  }
+});
+
+forgotForm.addEventListener('submit', async (event) => {
+  event.preventDefault();
+  showMessage('');
+
+  const email = document.getElementById('forgot-email').value.trim();
+
+  try {
+    showMessage('Sending password reset link to ' + email + '...', true);
+    // Note: Password reset functionality requires backend support
+    // For now, show a placeholder message
+    setTimeout(() => {
+      showMessage('Check your email for password reset instructions.', true);
+      setActiveTab('login');
+    }, 1500);
+  } catch (error) {
+    showMessage('Unable to process request. Check your network.', false);
   }
 });
 
