@@ -14,6 +14,7 @@ const messageElement = document.getElementById('message');
 const AUTH_TOKEN = 'jobhack_token';
 const AUTH_USER = 'jobhack_user';
 const RESUME_KEY = 'jobhack_resume';
+const API_BASE_URL = 'https://jobhack-backend.vercel.app'; // Update this to your Vercel backend URL
 
 // Form Elements
 const fullName = document.getElementById('full-name');
@@ -311,7 +312,7 @@ const fetchResumeData = async () => {
   if (!token) return null;
 
   try {
-    const response = await fetch('/api/resume', {
+    const response = await fetch(`${API_BASE_URL}/api/resume`, {
       headers: { Authorization: `Bearer ${token}` }
     });
     if (!response.ok) return null;
@@ -722,7 +723,7 @@ const saveResumeData = async () => {
 
   if (getAuthToken()) {
     try {
-      const response = await fetch('/api/resume', {
+      const response = await fetch(`${API_BASE_URL}/api/resume`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -908,7 +909,7 @@ const setAuthState = async () => {
   }
 
   try {
-    const response = await fetch('/api/profile', {
+    const response = await fetch(`${API_BASE_URL}/api/profile`, {
       headers: { Authorization: `Bearer ${token}` }
     });
     if (!response.ok) {
@@ -936,7 +937,7 @@ loginForm.addEventListener('submit', async (event) => {
   const password = document.getElementById('login-password').value;
 
   try {
-    const response = await fetch('/api/login', {
+    const response = await fetch(`${API_BASE_URL}/api/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password })
@@ -963,7 +964,7 @@ registerForm.addEventListener('submit', async (event) => {
   const password = document.getElementById('register-password').value;
 
   try {
-    const response = await fetch('/api/register', {
+    const response = await fetch(`${API_BASE_URL}/api/register`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name, email, password })
